@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Arcade Room - Galería Personalizada</title>
+    <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+</head>
+
+<body>
+
+<a-scene shadow="type: pcfsoft">
+    <a-assets>
+        <audio id="musicaFondo" src="img/musica-fondo.mp3" preload="auto" crossorigin="anonymous"></audio>
+
+        <audio id="flipSound" src="img/freesound_community-flipcard-91468.mp3"></audio>
+        <audio id="matchSound" src="img/freesound_community-pageturn-102978.mp3"></audio>
+        <img id="img1" src="img/caballito-de-mar.jpg">
+        <img id="img2" src="img/estrella-de-mar.jpg">
+        <img id="img3" src="img/medusas-blancas.jpg">
+        <img id="img4" src="img/oktopus.jpg">
+        <img id="back" src="img/mar.jpg">
+        <img id="grid" src="https://img.gs/bbbbpbtpjt/200x200,repeat/https://i.imgur.com/W9pX9sX.png">
+
+        <img id="texturaFondo" src="img/fondo.jpg">
+        <img id="texturaAtras" src="img/fondo.jpg">
+        <img id="texturaIzquierda" src="img/fondo.jpg">
+        <img id="texturaDerecha" src="img/fondo.jpg">
+        <img id="texturaTecho" src="img/techo.jpg">
+        <img id="texturaPiso" src="img/piso.jpg">
+    </a-assets>
+
+    <a-entity id="reproductor" sound="src: #musicaFondo; loop: true; volume: 0.5; positional: false"></a-entity>
+
+    <a-light type="ambient" color="#666" intensity="0.6"></a-light>
+    <a-light type="point" color="#00ffff" intensity="1.2" position="0 5 0"></a-light>
+    
+    <a-sky color="#050010"></a-sky>
+    
+    <a-plane 
+        position="0 0.001 0" 
+        rotation="-90 0 0" 
+        width="20" 
+        height="20" 
+        material="src: #texturaPiso; 
+                  repeat: 4 4; 
+                  metalness: 0.9; 
+                  roughness: 0.1">
+    </a-plane>
+
+    <a-entity position="0 8 0" rotation="90 0 0">
+        <a-plane width="20" height="20" material="color: #00ffff; emissive: #00ffff; emissiveIntensity: 2; shader: flat"></a-plane>
+        <a-plane width="20" height="20" position="0 0 0.01" material="src: #grid; repeat: 15 15; transparent: true; opacity: 0.2"></a-plane>
+    </a-entity>
+
+    <a-entity id="marcoNeon">
+        <a-cylinder position="0 0.05 -9.9" rotation="0 0 90" radius="0.05" height="20" color="#00ffff" 
+                    material="emissive: #00ffff; emissiveIntensity: 2"
+                    animation="property: material.emissiveIntensity; from: 2; to: 0.5; dur: 1500; dir: alternate; loop: true"></a-cylinder>
+        <a-cylinder position="0 0.05 9.9" rotation="0 0 90" radius="0.05" height="20" color="#00ffff" 
+                    material="emissive: #00ffff; emissiveIntensity: 2"
+                    animation="property: material.emissiveIntensity; from: 2; to: 0.5; dur: 1500; dir: alternate; loop: true"></a-cylinder>
+        <a-cylinder position="-9.9 0.05 0" rotation="90 0 0" radius="0.05" height="20" color="#00ffff" 
+                    material="emissive: #00ffff; emissiveIntensity: 2"
+                    animation="property: material.emissiveIntensity; from: 2; to: 0.5; dur: 1500; dir: alternate; loop: true"></a-cylinder>
+        <a-cylinder position="9.9 0.05 0" rotation="90 0 0" radius="0.05" height="20" color="#00ffff" 
+                    material="emissive: #00ffff; emissiveIntensity: 2"
+                    animation="property: material.emissiveIntensity; from: 2; to: 0.5; dur: 1500; dir: alternate; loop: true"></a-cylinder>
+    </a-entity>
+
+    <a-box position="0 4 -10" width="20" height="8" depth="0.2" material="src: #texturaFondo; repeat: 2 1"></a-box> 
+    <a-box position="0 4 10" width="20" height="8" depth="0.2" material="src: #texturaAtras; repeat: 2 1"></a-box> 
+    <a-box position="-10 4 0" rotation="0 90 0" width="20" height="8" depth="0.2" material="src: #texturaIzquierda; repeat: 2 1"></a-box> 
+    <a-box position="10 4 0" rotation="0 90 0" width="20" height="8" depth="0.2" material="src: #texturaDerecha; repeat: 2 1"></a-box> 
+
+    <a-cylinder position="-9.5 4 -9.5" radius="0.2" height="8" color="#ff00ff" material="emissive: #ff00ff; emissiveIntensity: 2"></a-cylinder>
+    <a-cylinder position="9.5 4 -9.5" radius="0.2" height="8" color="#00ffff" material="emissive: #00ffff; emissiveIntensity: 2"></a-cylinder>
+
+    <a-entity id="startLogic" position="0 0.01 2">
+        <a-cylinder id="btnBox" radius="0.8" height="0.2" color="#ff00ff" material="emissive: #ff00ff" position="0 0.1 0"></a-cylinder>
+        <a-text id="btnText" value="INICIAR SISTEMA" align="center" color="#ffffff" position="0 0.21 0" rotation="-90 0 0" scale="0.8 0.8 0.8"></a-text>
+        <a-box class="clickable" width="1.6" height="0.5" depth="1.6" material="opacity: 0; transparent: true"></a-box>
+    </a-entity>
+
+    <a-entity position="-4.5 1.5 -3.3">
+        <a-cylinder radius="0.6" height="1.8" color="#222" open-ended="true" material="side: double; wireframe: true"></a-cylinder>
+        <a-cylinder id="sandTop" radius="0.45" height="0.75" position="0 0.38 0" color="#00ffff" material="emissive: #00ffff"
+                    animation="property: scale; to: 0 0 0; dur: 30000; easing: linear; startEvents: gameStart"></a-cylinder>
+        <a-cylinder id="sandBottom" radius="0.45" height="0.75" position="0 -0.75 0" scale="0.1 0 0.1" color="#ff00ff" material="emissive: #ff00ff"
+                    animation="property: scale; to: 1 1 1; dur: 30000; easing: linear; startEvents: gameStart"
+                    animation__pos="property: position; to: 0 -0.38 0; dur: 30000; easing: linear; startEvents: gameStart"></a-cylinder>
+    </a-entity>
+
+    <a-box position="0 1.5 -3.4" width="7.5" height="4.5" depth="0.1" color="#111"></a-box> 
+    <a-box position="0 1.5 -3.5" width="8" height="5" depth="0.05" color="#ff00ff" material="emissive: #ff00ff; emissiveIntensity: 0.5"></a-box>
+    
+    <a-entity position="3.5 4.1 -3.3">
+        <a-plane width="2.2" height="0.6" color="#000" material="opacity: 0.8; transparent: true"></a-plane>
+        <a-text id="timerText" value="DATA: 30" align="center" color="#00ffff" scale="1.5 1.5 1.5"></a-text>
+    </a-entity>
+    <a-text id="winText" value="" align="center" position="0 1.5 -3" color="#00ffff" scale="5 5 5"></a-text>
+
+    <a-camera position="0 2 6">
+        <a-cursor id="cursor" color="#00ffff" raycaster="objects: .clickable, .card" fuse="true" fuse-timeout="500"></a-cursor>
+    </a-camera>
+
+</a-scene>
+
+<script>
+    AFRAME.registerComponent('memorama',{
+        init:function(){
+            this.scene = document.querySelector("a-scene");
+            this.images = ["img1","img1","img2","img2","img3","img3","img4","img4"];
+            this.timeLeft = 30;
+            this.gameOver = true;
+            this.gameStarted = false;
+            this.btnArea = document.querySelector("#startLogic");
+            this.btnBox = document.querySelector("#btnBox");
+            this.btnText = document.querySelector("#btnText");
+            this.createBoard();
+            this.btnArea.addEventListener('click', () => {
+                if(!this.gameStarted) { this.startGame(); } 
+                else if(this.gameOver) { location.reload(); }
+            });
+        },
+        startGame: function() {
+            // 1. Cambiar estado del juego
+            this.gameOver = false;
+            this.gameStarted = true;
+            this.matches = 0; // Reiniciar contador de parejas
+
+            // 2. ACTIVAR MÚSICA (La forma más compatible)
+            const musicEntity = document.querySelector("#reproductor");
+            if (musicEntity && musicEntity.components.sound) {
+                musicEntity.components.sound.playSound();
+            }
+
+            // 3. Actualizar apariencia del botón
+            this.btnBox.setAttribute("color", "#00ffff");
+            this.btnText.setAttribute("value", "ONLINE");
+
+            // 4. Activar animaciones del reloj de arena
+            const sandTop = document.querySelector("#sandTop");
+            const sandBottom = document.querySelector("#sandBottom");
+            if(sandTop) sandTop.emit("gameStart");
+            if(sandBottom) sandBottom.emit("gameStart");
+
+            // 5. Iniciar Cronómetro
+            this.timer = setInterval(() => {
+                if (this.gameOver) return;
+                
+                this.timeLeft--;
+                const timerDisplay = document.querySelector("#timerText");
+                if(timerDisplay) {
+                    timerDisplay.setAttribute("value", "DATA: " + this.timeLeft);
+                }
+
+                // Si se acaba el tiempo
+                if (this.timeLeft <= 0) {
+                    this.stopGame(false);
+                }
+            }, 1000);
+        },
+        createBoard:function(){
+            let imgs=[...this.images].sort(()=>Math.random()-0.5);
+            for(let i=0;i<8;i++){
+                let card=document.createElement("a-plane");
+                card.classList.add("card", "clickable");
+                card.setAttribute("width",1.2); card.setAttribute("height",1.5);
+                let col=i%4; let row=Math.floor(i/4);
+                card.setAttribute("position",{ x:(col-1.5)*1.6, y:2.7-row*2.1, z:-3.3 });
+                card.setAttribute("material","src:#back; side: double");
+                card.dataset.image=imgs[i];
+                card.dataset.flipped="false";
+                this.scene.appendChild(card);
+                this.addEvents(card);
+            }
+        },
+        addEvents:function(card){
+            card.addEventListener("click",()=>{
+                if(this.gameOver || this.lock || card.dataset.flipped==="true") return;
+                this.flipCard(card);
+                if(!this.first){ this.first=card; return; }
+                this.second=card;
+                this.lock=true;
+                if(this.first.dataset.image===this.second.dataset.image){
+                    this.matches= (this.matches || 0) + 1; this.first=null; this.second=null; this.lock=false;
+                    if(this.matches===4) this.stopGame(true);
+                }else{
+                    setTimeout(()=>{ this.unflip(this.first); this.unflip(this.second); this.first=null; this.second=null; this.lock=false; },1000);
+                }
+            });
+        },
+        stopGame: function(win) {
+            this.gameOver = true;
+            clearInterval(this.timer);
+            this.btnBox.setAttribute("color", "#ff0000");
+            this.btnText.setAttribute("value", "REINTENTAR");
+            document.querySelector("#winText").setAttribute("value", win ? "VICTORIA" : "ERROR");
+        },
+        flipCard:function(card){
+            card.setAttribute("animation",{property:"rotation", to:"0 180 0", dur:300});
+            setTimeout(()=>card.setAttribute("material","src:#"+card.dataset.image),150);
+            card.dataset.flipped="true";
+        },
+        unflip:function(card){
+            card.setAttribute("animation",{property:"rotation", to:"0 0 0", dur:300});
+            setTimeout(()=>card.setAttribute("material","src:#back"),150);
+            card.dataset.flipped="false";
+        }
+    });
+    document.querySelector("a-scene").setAttribute("memorama","");
+</script>
+</body>
+</html>
